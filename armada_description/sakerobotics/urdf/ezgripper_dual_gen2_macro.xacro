@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<robot name="ezgripper_dual_gen2" xmlns:xacro="http://ros.org/wiki/xacro">
+  <xacro:macro name="load_gripper" params="parent_link prefix">
+    <xacro:include filename="$(find armada_description)/sakerobotics/urdf/ezgripper_dual_gen2_articulated_model_macro.xacro" />
+    <xacro:ezgripper_dual parent_link="${parent_link}" prefix="${prefix}"/>
+  </xacro:macro>
+</robot>
+

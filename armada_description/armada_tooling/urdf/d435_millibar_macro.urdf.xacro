@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<robot name="d435_millibar_model" xmlns:xacro="http://ros.org/wiki/xacro">
+  <xacro:macro name="load_d435_millibar" params="parent prefix">
+    <xacro:include filename="$(find armada_description)/armada_tooling/urdf/d435_millibar_model_macro.urdf.xacro" />
+    <xacro:d435_millibar parent="${parent}" prefix="${prefix}"/>
+  </xacro:macro>
+</robot>

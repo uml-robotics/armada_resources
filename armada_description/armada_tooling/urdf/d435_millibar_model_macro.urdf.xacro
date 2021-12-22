@@ -1,0 +1,194 @@
+<?xml version="1.0"?>
+<robot xmlns:xi="http://www.w3.org/2001/XInclude"
+    xmlns:gazebo="http://playerstage.sourceforge.net/gazebo/xmlschema/#gz"
+    xmlns:model="http://playerstage.sourceforge.net/gazebo/xmlschema/#model"
+    xmlns:sensor="http://playerstage.sourceforge.net/gazebo/xmlschema/#sensor"
+    xmlns:body="http://playerstage.sourceforge.net/gazebo/xmlschema/#body"
+    xmlns:geom="http://playerstage.sourceforge.net/gazebo/xmlschema/#geom"
+    xmlns:joint="http://playerstage.sourceforge.net/gazebo/xmlschema/#joint"
+    xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller"
+    xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
+    xmlns:rendering="http://playerstage.sourceforge.net/gazebo/xmlschema/#rendering"
+    xmlns:renderable="http://playerstage.sourceforge.net/gazebo/xmlschema/#renderable"
+    xmlns:physics="http://playerstage.sourceforge.net/gazebo/xmlschema/#physics"
+    xmlns:xacro="http://ros.org/wiki/xacro">
+  
+  <xacro:macro name="d435_millibar" params="prefix parent">
+  <!-- add in a namespace param and update lines 82/83 & 89/90 where a namespace would be used for wrist cam -->
+
+  <xacro:include filename="$(find armada_gazebo)/armada_tooling/urdf/d435_millibar_model_gazebo.xacro" />
+  <xacro:include filename="$(find armada_gazebo)/armada_tooling/urdf/d435_millibar_depth_camera_gazebo.xacro" />
+
+  <xacro:d435_millibar_gazebo prefix="${prefix}" />
+  <xacro:d435_millibar_depth_camera_gazebo prefix="${prefix}" />
+
+  <link name="${prefix}d435_mount_link">
+    <inertial>
+      <origin xyz="0 0 1" rpy="0 0 0" />
+      <mass value="1" />
+      <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://armada_description/armada_tooling/meshes/d435_mount_link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <!-- <box size="0.01 0.01 0.01" /> -->
+        <mesh filename="package://armada_description/armada_tooling/meshes/d435_mount_link.dae" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="${prefix}d435_mount_joint" type="fixed">
+      <parent link="${parent}"/>
+      <child link="${prefix}d435_mount_link"/>
+      <origin xyz="0.0 0.0 0.0" rpy="-${pi/2} 0.0 -${pi}"/>
+  </joint>
+
+  <link name="${prefix}d435">
+    <inertial>
+      <origin xyz="0 0 1" rpy="0 0 0" />
+      <mass value="1" />
+      <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://armada_description/armada_tooling/meshes/d435.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <!-- <box size="0.01 0.01 0.01" /> -->
+        <mesh filename="package://armada_description/armada_tooling/meshes/d435.dae" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="${prefix}d435_mount_to_d435_joint" type="fixed">
+    <origin xyz="0 -0.015 0.09" rpy="${pi/2} 0 0" />
+    <parent link="${prefix}d435_mount_link" />
+    <child link="${prefix}d435" />
+    <axis xyz="0 0 0" />
+  </joint>
+
+  <link name="${prefix}d435_inter_link" />
+
+  <joint name="${prefix}d435_to_d435_inter_joint" type="fixed">
+    <parent link="${prefix}d435"/>
+    <child link="${prefix}d435_inter_link"/>
+    <origin xyz="0.0 0.0 0.0" rpy="-${pi/2} -${pi/2} 0.0"/>
+   </joint>
+
+  <!-- USE GROUPS INSTEAD, XACRO DOES NOT SEEM TO LIKE THIS METHOD (PREFIX NOT DEFINED ERROR)
+  <child unless="$(eval prefix == '')" link="${namespace}/${prefix}rear_optical" />
+  <child if="$(eval prefix == '')" link="${prefix}rear_optical" />
+  <link unless="$(eval prefix == '')" name="${namespace}/${prefix}rear_optical" />
+  -->
+
+  <link name="${prefix}wrist_optical" />
+
+  <joint name="${prefix}d435_to_wrist_optical_joint" type="fixed">
+    <origin xyz="0.0 0.0 0.0" rpy="${-pi/2} 0.0 ${-pi/2}" /> <!-- X=Z, -Y=Y, Z=X-->
+    <parent link="${prefix}d435_inter_link" />
+    <child link="${prefix}wrist_optical" />
+    <axis xyz="0 0 0" />
+  </joint> 
+
+  <link name="${prefix}millibar_adapters_link">
+    <inertial>
+      <origin xyz="0 0 1" rpy="0 0 0" />
+      <mass value="1" />
+      <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://armada_description/armada_tooling/meshes/millibar_adapters_link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <!-- <box size="0.01 0.01 0.01" /> -->
+        <mesh filename="package://armada_description/armada_tooling/meshes/millibar_adapters_link.dae" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="${prefix}d435_mount_to_millibar_adapters_joint" type="fixed">
+    <!-- <origin xyz="0 -0.019 0" rpy="1.5708 -1.6401E-05 1.0043E-21" /> -->
+    <origin xyz="0 -0.025 0" rpy="1.5708 -1.6401E-05 1.0043E-21" />
+    <parent link="${prefix}d435_mount_link" />
+    <child link="${prefix}millibar_adapters_link" />
+    <axis xyz="0 0 0" />
+  </joint>
+
+  <link name="${prefix}r85_network_adapter_link">
+    <inertial>
+      <origin xyz="0 0 1" rpy="0 0 0" />
+      <mass value="1" />
+      <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://armada_description/armada_tooling/meshes/r85_network_adapter_link.STL" />
+      </geometry>
+      <material name="">
+        <color rgba="0.79608 0.82353 0.93725 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <!-- <box size="0.01 0.01 0.01" /> -->
+        <mesh filename="package://armada_description/armada_tooling/meshes/r85_network_adapter_link.dae" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="${prefix}millibar_adapters_to_r85_network_adapter_joint" type="fixed">
+    <!-- <origin xyz="0 0 0.045447" rpy="0 0 -5.6E-05" /> -->
+    <origin xyz="0 0 0.045447" rpy="0 0 -5.6E-05" />
+    <parent link="millibar_adapters_link" />
+    <child link="r85_network_adapter_link" />
+    <axis xyz="0 0 0" />
+  </joint>
+
+  <!-- a place to attach a gripper to -->
+  <link name="${prefix}tooling_ee_link"/>
+
+  <joint name="${prefix}r85_network_adapter_link_to_ee_link_joint" type="fixed">
+    <origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
+    <parent link="${prefix}r85_network_adapter_link" />
+    <child link="${prefix}tooling_ee_link" />
+    <axis xyz="0 0 0" />
+  </joint>
+
+  <!-- dummy tcp_link for controlling -->
+  <link name="${prefix}tcp_link"/>
+
+  <joint name="${prefix}tcpip_adapter_to_tcp_joint" type="fixed">
+    <origin xyz="0.0 0.0 0.14" rpy="0 0 0" />
+    <parent link="${prefix}r85_network_adapter_link" />
+    <child link="${prefix}tcp_link" />
+    <axis xyz="0 0 0" />
+  </joint>
+
+  </xacro:macro>
+</robot>

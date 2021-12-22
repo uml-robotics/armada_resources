@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro"
+       name="tm5_700" >
+
+  <!-- xacro:arg name="transmission_hw_interface" default="hardware_interface/PositionJointInterface"/-->
+  <xacro:arg name="stl_mesh" default="false"/>
+
+  <!-- common stuff -->
+  <xacro:include filename="$(find armada_gazebo)/techman_robot/urdf/common.gazebo.xacro" />
+
+  <!-- tm5_700 -->
+  <xacro:include filename="$(find armada_description)/techman_robot/urdf/tm5_700.urdf.xacro" />
+
+  <!-- ezgripper_dual_gen2 -->
+  <xacro:include filename="$(find armada_description)/sakerobotics/urdf/ezgripper_dual_gen2_macro.xacro" />
+  <xacro:include filename="$(find armada_gazebo)/sakerobotics/urdf/ezgripper_dual_gen2_transmission_macro.xacro" />
+
+  <!-- arm -->
+  <xacro:tm5_700_robot prefix="" joint_limited="false" stl_mesh="$(arg stl_mesh)"/>
+
+  <!-- gripper -->
+  <xacro:load_gripper parent_link="flange_link"  prefix=""/>
+  <xacro:load_gazebo_gripper_transmissions prefix=""/>
+
+  <link name="world" />
+
+  <joint name="world_joint" type="fixed">
+    <parent link="world" />
+    <child link = "base_link" />
+    <origin xyz="0.0 0.0 0.0" rpy="${pi/2} 0.0 0.0" />
+  </joint>
+
+</robot>

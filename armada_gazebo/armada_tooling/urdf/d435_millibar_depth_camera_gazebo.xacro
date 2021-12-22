@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<robot xmlns:xi="http://www.w3.org/2001/XInclude"
+    xmlns:gazebo="http://playerstage.sourceforge.net/gazebo/xmlschema/#gz"
+    xmlns:model="http://playerstage.sourceforge.net/gazebo/xmlschema/#model"
+    xmlns:sensor="http://playerstage.sourceforge.net/gazebo/xmlschema/#sensor"
+    xmlns:body="http://playerstage.sourceforge.net/gazebo/xmlschema/#body"
+    xmlns:geom="http://playerstage.sourceforge.net/gazebo/xmlschema/#geom"
+    xmlns:joint="http://playerstage.sourceforge.net/gazebo/xmlschema/#joint"
+    xmlns:controller="http://playerstage.sourceforge.net/gazebo/xmlschema/#controller"
+    xmlns:interface="http://playerstage.sourceforge.net/gazebo/xmlschema/#interface"
+    xmlns:rendering="http://playerstage.sourceforge.net/gazebo/xmlschema/#rendering"
+    xmlns:renderable="http://playerstage.sourceforge.net/gazebo/xmlschema/#renderable"
+    xmlns:physics="http://playerstage.sourceforge.net/gazebo/xmlschema/#physics"
+    xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <xacro:macro name="d435_millibar_depth_camera_gazebo" params="prefix">
+
+    <!-- WRIST CAMERA -->
+    <gazebo reference="${prefix}d435_inter_link">
+      <sensor type="depth" name="wrist_camera">
+        <update_rate>30.0</update_rate>
+        <camera>
+          <pose>0.0 0.0 0.0 0.0 0.0 0.0</pose>
+          <horizontal_fov>1.50098</horizontal_fov>
+          <image>
+            <width>1280</width>
+            <height>720</height>
+            <format>R8G8B8</format>
+          </image>
+          <clip>
+            <near>0.02</near>
+            <far>300</far>
+          </clip>
+          <noise>
+            <type>gaussian</type>
+            <mean>0.0</mean>
+            <stddev>0.007</stddev>
+          </noise>
+        </camera>
+        <plugin name="wrist_camera_plugin" filename="libgazebo_ros_openni_kinect.so">
+          <baseline>0.2</baseline>
+          <alwaysOn>true</alwaysOn>
+          <updateRate>0.0</updateRate>
+          <cameraName>camera_wrist</cameraName>
+          <imageTopicName>/camera_wrist/color/image_raw</imageTopicName>
+          <cameraInfoTopicName>/camera_wrist/color/camera_info</cameraInfoTopicName>
+          <depthImageTopicName>/camera_wrist/depth/image_raw</depthImageTopicName>
+          <depthImageCameraInfoTopicName>/camera_wrist/depth/camera_info</depthImageCameraInfoTopicName>
+          <pointCloudTopicName>/camera_wrist/depth/points</pointCloudTopicName>
+          <frameName>${prefix}wrist_optical</frameName>
+          <pointCloudCutoff>0.1</pointCloudCutoff>
+          <pointCloudCutoffMax>10</pointCloudCutoffMax>
+        </plugin>
+      </sensor>
+    </gazebo>
+
+  </xacro:macro>
+</robot>

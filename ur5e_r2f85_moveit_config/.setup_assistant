@@ -1,0 +1,11 @@
+moveit_setup_assistant_config:
+  URDF:
+    package: ur_e_description
+    relative_path: urdf/ur5e_robot_robotiq_2f_85.urdf.xacro
+    xacro_args: "--inorder "
+  SRDF:
+    relative_path: config/ur5e.srdf
+  CONFIG:
+    author_name: Brian Flynn
+    author_email: brian_flynn@uml.edu
+    generated_timestamp: 1603734201

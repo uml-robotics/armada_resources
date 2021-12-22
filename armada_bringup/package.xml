@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>armada_bringup</name>
+  <version>1.2.5</version>
+  <description>
+      Bringup/launch files for the robots and associated hardware in the robot ARMada at the NERVE Center at UMASS Lowell
+  </description>
+
+  <author>Brian Flynn</author>
+  <maintainer email="brian_flynn@uml.edu">Brian Flynn</maintainer>
+
+  <license>BSD</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+</package>
