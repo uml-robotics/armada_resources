@@ -91,12 +91,6 @@
     <origin xyz="0.0 0.0 0.0" rpy="-${pi/2} -${pi/2} 0.0"/>
    </joint>
 
-  <!-- USE GROUPS INSTEAD, XACRO DOES NOT SEEM TO LIKE THIS METHOD (PREFIX NOT DEFINED ERROR)
-  <child unless="$(eval prefix == '')" link="${namespace}/${prefix}rear_optical" />
-  <child if="$(eval prefix == '')" link="${prefix}rear_optical" />
-  <link unless="$(eval prefix == '')" name="${namespace}/${prefix}rear_optical" />
-  -->
-
   <link name="${prefix}wrist_optical" />
 
   <joint name="${prefix}d435_to_wrist_optical_joint" type="fixed">

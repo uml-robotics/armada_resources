@@ -9,7 +9,8 @@
 
   <!-- Robot model information for choosing correct launch/configuration files -->
   <arg name="limited" default="false"  doc="If true, limits joint range [-PI, PI] on all joints" />
-  <arg name="model" default="ur5" doc="Robot number model: 3, 5, or 10 (16 not currently implemented)"/>
+  <arg name="robot_make" default="universal_robot" doc="Robot manufacturer"/>
+  <arg name="robot_model" default="ur5e" doc="Robot number model: 3, 5, or 10, e model if applicable)"/>
   <arg name="sim_workstation" default="false" doc="Attaches robot to simulated ARMada workstation" />
   <arg name="gripper_make" default="" doc="make of gripper (e.g. robotiq, sake_robotics, etc.)" />
   <arg name="gripper_model" default="" doc="model of gripper (e.g. r2f85, ezgripper, etc.)" />
@@ -21,6 +22,7 @@
   <!-- Bring up Gazebo simulation of robot -->
   <include file="$(find armada_gazebo)/universal_robot/launch/ure.launch">
       <arg name="limited" value="$(arg limited)" />
+      <arg name="robot_make" value="$(arg robot_make)" />
       <arg name="robot_model" value="$(arg robot_model)" />
       <arg name="sim_workstation" value="$(arg sim_workstation)" />
       <arg name="gripper_make" value="$(arg gripper_make)" />

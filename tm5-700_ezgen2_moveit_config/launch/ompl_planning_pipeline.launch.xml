@@ -25,6 +25,6 @@
   <param name="capabilities" value="$(arg capabilities)" />
   <param name="disable_capabilities" value="$(arg disable_capabilities)" />
 
-  <rosparam command="load" file="$(find ur5e_r2f85_moveit_config)/config/ompl_planning.yaml"/>
+  <rosparam command="load" file="$(find tm5-700_ezgen2_moveit_config)/config/ompl_planning.yaml"/>
 
 </launch>

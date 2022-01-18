@@ -1,0 +1,11 @@
+moveit_setup_assistant_config:
+  URDF:
+    package: armada_description
+    relative_path: techman_robot/urdf/tm5_700_robot_ezgen2.urdf.xacro
+    xacro_args: ""
+  SRDF:
+    relative_path: config/tm5_700.srdf
+  CONFIG:
+    author_name: Brian Flynn
+    author_email: brian_flynn@uml.edu
+    generated_timestamp: 1642007788

@@ -1,0 +1,29 @@
+controller_list:
+  - name: fake_manipulator_controller
+    type: $(arg execution_type)
+    joints:
+      - shoulder_1_joint
+      - shoulder_2_joint
+      - elbow_joint
+      - wrist_1_joint
+      - wrist_2_joint
+      - wrist_3_joint
+  - name: fake_endeffector_controller
+    type: $(arg execution_type)
+    joints:
+      - _ezgripper_knuckle_palm_L1_1
+  - name: fake_manipulator_and_endeffector_controller
+    type: $(arg execution_type)
+    joints:
+      - shoulder_1_joint
+      - shoulder_2_joint
+      - elbow_joint
+      - wrist_1_joint
+      - wrist_2_joint
+      - wrist_3_joint
+      - _ezgripper_knuckle_palm_L1_1
+initial:  # Define initial robot poses.
+  - group: manipulator
+    pose: home
+  - group: endeffector
+    pose: close

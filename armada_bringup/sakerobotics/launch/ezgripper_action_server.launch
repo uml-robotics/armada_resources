@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<launch>
+
+  <arg name="gui" default="false" />
+  <arg name="port" default="/dev/ttyUSB0" />
+
+  <node pkg="ezgripper_driver" type="ezgripper.py" name="ezgripper" output="screen">
+    <param name="~port" value="$(arg port)"/>
+    <param name="~baud" value="57600"/>
+    <rosparam param="grippers">{main:[1]}</rosparam>
+  </node>
+  
+  <node pkg="ezgripper_driver" type="ezgripperGUI.py" name="ezgripper_gui" output="screen" if="$(arg gui)" />
+
+</launch>

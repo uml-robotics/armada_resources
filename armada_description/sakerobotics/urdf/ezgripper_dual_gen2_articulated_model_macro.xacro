@@ -6,18 +6,21 @@
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
+          <!-- <mesh filename="package://armada_description/sakerobotics/meshes/SAKE_Palm_Dual_Gen2.dae" scale="1 1 1"/>  -->
           <mesh filename="package://ezgripper_driver/meshes/ezgripper_gen2/SAKE_Palm_Dual_Gen2.stl"/>
         </geometry>
       </visual>
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://ezgripper_driver/meshes/ezgripper_gen2/SAKE_Palm_Dual_Gen2.stl"/>
+          <!-- <mesh filename="package://armada_description/sakerobotics/meshes/SAKE_Palm_Dual_Gen2.dae" scale="1 1 1"/>  -->
+          <mesh filename="package://ezgripper_driver/meshes/ezgripper_gen2/SAKE_Palm_Dual_Gen2.stl"/> -->
         </geometry>
       </collision>
       <inertial>
-        <mass value=".3"/>
-        <inertia ixx="0.01" ixy="0.0" ixz="0.0" iyy="0.01" iyz="0.0" izz="0.01"/>
+        <origin xyz="0 0 1" rpy="0 0 0" />
+        <mass value="1" />
+        <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1" />
       </inertial>
     </link>
 
@@ -52,18 +55,21 @@
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://ezgripper_driver/meshes/ezgripper_gen2/SAKE_Finger_L1_Gen2.stl"/>
+          <!-- <mesh filename="package://armada_description/sakerobotics/meshes/SAKE_Finger_L1_Gen2.dae" scale="1 1 1"/>  -->
+          <mesh filename="package://ezgripper_driver/meshes/ezgripper_gen2/SAKE_Finger_L1_Gen2.stl"/> -->
         </geometry>
       </visual>
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://ezgripper_driver/meshes/ezgripper_gen2/SAKE_Finger_L1_Gen2.stl"/>
+          <!-- <mesh filename="package://armada_description/sakerobotics/meshes/SAKE_Finger_L1_Gen2.dae" scale="1 1 1"/>  -->
+          <mesh filename="package://ezgripper_driver/meshes/ezgripper_gen2/SAKE_Finger_L1_Gen2.stl"/> -->
         </geometry>
       </collision>
       <inertial>
-        <mass value=".025"/>
-        <inertia ixx="0.01" ixy="0.0" ixz="0.0" iyy="0.01" iyz="0.0" izz="0.01"/>
+        <origin xyz="0 0 1" rpy="0 0 0" />
+        <mass value="1" />
+        <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1" />
       </inertial>
     </link>
   </xacro:macro>
@@ -73,18 +79,21 @@
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
+          <!-- <mesh filename="package://armada_description/sakerobotics/meshes/SAKE_Finger_L2_Gen2.dae" scale="1 1 1"/>  -->
           <mesh filename="package://ezgripper_driver/meshes/ezgripper_gen2/SAKE_Finger_L2_Gen2.stl"/>
         </geometry>
       </visual>
       <collision>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
+          <!-- <mesh filename="package://armada_description/sakerobotics/meshes/SAKE_Finger_L2_Gen2.dae" scale="1 1 1"/>  -->
           <mesh filename="package://ezgripper_driver/meshes/ezgripper_gen2/SAKE_Finger_L2_Gen2.stl"/>
         </geometry>
       </collision>
       <inertial>
-        <mass value=".025"/>
-        <inertia ixx="0.01" ixy="0.0" ixz="0.0" iyy="0.01" iyz="0.0" izz="0.01"/>
+        <origin xyz="0 0 1" rpy="0 0 0" />
+        <mass value="1" />
+        <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1" />
       </inertial>
     </link>
   </xacro:macro>
@@ -105,16 +114,11 @@
   </xacro:macro>
 
   <xacro:macro name="ezgripper_knuckle_L1_L2" params="prefix postfix reflectY reflectZ reflectR mimic_test">
-    <joint name="${prefix}_ezgripper_knuckle_L1_L2_${postfix}" type="revolute">
+    <joint name="${prefix}_ezgripper_knuckle_L1_L2_${postfix}" type="fixed">
       <parent link="${prefix}_ezgripper_finger_L1_${postfix}"/>
       <child link="${prefix}_ezgripper_finger_L2_${postfix}"/>
       <origin xyz="0.052 0 0" rpy="0 0 0"/>
-      <!-- origin xyz="0.06 0 0" rpy="${3.14159 * reflectR} 0 0"/-->
-      <axis xyz="0 1 0"/>
-      <limit lower="0" upper="1.94" effort="1" velocity="3.67"/>
-      <xacro:if value="${mimic_test}">
-           <mimic joint="${prefix}_ezgripper_knuckle_L1_L2_1"/>
-      </xacro:if>
+      <axis xyz="0 0 0"/>
     </joint>
   </xacro:macro>
 
