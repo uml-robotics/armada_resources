@@ -8,13 +8,25 @@
   <arg name="max_safe_path_cost" default="1"/>
   <arg name="jiggle_fraction" default="0.05" />
   <arg name="publish_monitored_planning_scene" default="true"/>
-  <arg name="limited" default="false"/>
   <arg name="sim" default="false"/>
   <arg name="load_robot_description" default="true" />
+  <arg name="limited" default="false" doc="If true, limits joint range [-PI, PI] on all joints." />
+  <arg name="sim_workstation" default="false" doc="If true, spawn robot atop simualted ARMada workstation in Gazebo world" />
+  <arg name="robot_make" default="" />
+  <arg name="robot_model" default="" />
+  <arg name="gripper_make" default="" doc="make of gripper (e.g. robotiq, sake_robotics, etc.)" />
+  <arg name="gripper_model" default="" doc="model of gripper (e.g. r2f85, ezgripper, etc.)" />
+  <arg name="wrist_cam" default="" />
 
   <include file="$(find ur5e_r2f85_moveit_config)/launch/planning_context.launch">
-    <arg name="limited" value="$(arg limited)" />
     <arg name="load_robot_description" value="$(arg load_robot_description)" />
+    <arg name="limited" value="$(arg limited)"/>
+    <arg name="sim_workstation" value="$(arg sim_workstation)" />
+    <arg name="robot_make" value="$(arg robot_make)" />
+    <arg name="robot_model" value="$(arg robot_model)" />
+    <arg name="gripper_make" value="$(arg gripper_make)" />
+    <arg name="gripper_model" value="$(arg gripper_model)" />
+    <arg name="wrist_cam" value="$(arg wrist_cam)" />
   </include>
 
   <!-- GDB Debug Option -->

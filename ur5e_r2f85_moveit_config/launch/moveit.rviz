@@ -98,6 +98,20 @@ Visualization Manager:
             Show Axes: false
             Show Trail: false
             Value: true
+          d435:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          d435_inter_link:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+          d435_mount_link:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
           ee_link:
             Alpha: 1
             Show Axes: false
@@ -129,6 +143,16 @@ Visualization Manager:
             Show Trail: false
             Value: true
           left_outer_knuckle:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          millibar_adapters_link:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          r85_network_adapter_link:
             Alpha: 1
             Show Axes: false
             Show Trail: false
@@ -233,11 +257,19 @@ Visualization Manager:
             Show Axes: false
             Show Trail: false
             Value: true
+          tcp_link:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
           tool0:
             Alpha: 1
             Show Axes: false
             Show Trail: false
           tool_frame:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+          tooling_ee_link:
             Alpha: 1
             Show Axes: false
             Show Trail: false
@@ -265,6 +297,10 @@ Visualization Manager:
             Show Axes: false
             Show Trail: false
             Value: true
+          wrist_optical:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
         Loop Animation: false
         Robot Alpha: 0.5
         Robot Color: 150; 50; 150
@@ -335,6 +371,20 @@ Visualization Manager:
             Show Axes: false
             Show Trail: false
             Value: true
+          d435:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          d435_inter_link:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+          d435_mount_link:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
           ee_link:
             Alpha: 1
             Show Axes: false
@@ -366,6 +416,16 @@ Visualization Manager:
             Show Trail: false
             Value: true
           left_outer_knuckle:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          millibar_adapters_link:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+            Value: true
+          r85_network_adapter_link:
             Alpha: 1
             Show Axes: false
             Show Trail: false
@@ -470,11 +530,19 @@ Visualization Manager:
             Show Axes: false
             Show Trail: false
             Value: true
+          tcp_link:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
           tool0:
             Alpha: 1
             Show Axes: false
             Show Trail: false
           tool_frame:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
+          tooling_ee_link:
             Alpha: 1
             Show Axes: false
             Show Trail: false
@@ -502,6 +570,10 @@ Visualization Manager:
             Show Axes: false
             Show Trail: false
             Value: true
+          wrist_optical:
+            Alpha: 1
+            Show Axes: false
+            Show Trail: false
         Robot Alpha: 0.5
         Show Robot Collision: false
         Show Robot Visual: true
@@ -530,7 +602,7 @@ Visualization Manager:
       Size (Pixels): 3
       Size (m): 0.009999999776482582
       Style: Flat Squares
-      Topic: /camera_left/depth/points
+      Topic: /camera_left/depth_registered/points
       Unreliable: false
       Use Fixed Frame: true
       Use rainbow: true
@@ -558,7 +630,7 @@ Visualization Manager:
       Size (Pixels): 3
       Size (m): 0.009999999776482582
       Style: Flat Squares
-      Topic: /camera_rear/depth/points
+      Topic: /camera_rear/depth_registered/points
       Unreliable: false
       Use Fixed Frame: true
       Use rainbow: true
@@ -586,7 +658,7 @@ Visualization Manager:
       Size (Pixels): 3
       Size (m): 0.009999999776482582
       Style: Flat Squares
-      Topic: /camera_right/depth/points
+      Topic: /camera_right/depth_registered/points
       Unreliable: false
       Use Fixed Frame: true
       Use rainbow: true
@@ -614,7 +686,7 @@ Visualization Manager:
       Size (Pixels): 3
       Size (m): 0.009999999776482582
       Style: Points
-      Topic: /wrist_camera/depth_registered/points
+      Topic: /camera_wrist/depth/points
       Unreliable: false
       Use Fixed Frame: true
       Use rainbow: true
@@ -678,18 +750,18 @@ Visualization Manager:
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 0.025026679039001465
-        Y: -0.24802488088607788
+        X: -0.07360696792602539
+        Y: 0.06597274541854858
         Z: 0.8000003099441528
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.034796953201293945
+      Pitch: 0.20479699969291687
       Target Frame: world
       Value: XYOrbit (rviz)
-      Yaw: 2.0467987060546875
+      Yaw: 2.1817996501922607
     Saved: ~
 Window Geometry:
   Displays:
@@ -707,5 +779,5 @@ Window Geometry:
   Views:
     collapsed: false
   Width: 1828
-  X: 55
+  X: 54
   Y: 28

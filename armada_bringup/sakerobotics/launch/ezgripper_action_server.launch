@@ -10,6 +10,6 @@
     <rosparam param="grippers">{main:[1]}</rosparam>
   </node>
   
-  <node pkg="ezgripper_driver" type="ezgripperGUI.py" name="ezgripper_gui" output="screen" if="$(arg gui)" />
+  <node pkg="armada_bringup" type="ezgripperGUI.py" name="ezgripper_gui" output="screen" if="$(arg gui)" />
 
 </launch>

@@ -2,15 +2,28 @@
 <launch>
   <!-- By default we do not overwrite the URDF. Change the following to true to change the default behavior -->
   <arg name="load_robot_description" default="false"/>
-  <arg name="limited" default="false"/>
+  <arg name="limited" default="false" doc="If true, limits joint range [-PI, PI] on all joints." />
+  <arg name="sim_workstation" default="false" doc="If true, spawn robot atop simualted ARMada workstation in Gazebo world" />
+  <arg name="robot_make" default="" />
+  <arg name="robot_model" default="" />
+  <arg name="gripper_make" default="" doc="make of gripper (e.g. robotiq, sake_robotics, etc.)" />
+  <arg name="gripper_model" default="" doc="model of gripper (e.g. r2f85, ezgripper, etc.)" />
+  <arg name="wrist_cam" default="" />
 
   <!-- The name of the parameter under which the URDF is loaded -->
   <arg name="robot_description" default="robot_description"/>
 
   <!-- Load universal robot description format (URDF) -->
   <group if="$(arg load_robot_description)">
-    <param unless="$(arg limited)" name="$(arg robot_description)" command="xacro --inorder  '$(find armada_description)/universal_robot/urdf/ur5e_robot_robotiq_2f_85.urdf.xacro'" />
-    <param if="$(arg limited)" name="$(arg robot_description)" command="$(find xacro)/xacro --inorder '$(find armada_description)/universal_robot/urdf/ur5e_joint_limited_robot_robotiq_2f_85.urdf.xacro'" />
+    <include file="$(find armada_description)/universal_robot/launch/ure_upload.launch">
+      <arg name="limited" value="$(arg limited)"/>
+      <arg name="sim_workstation" value="$(arg sim_workstation)" />
+      <arg name="robot_make" value="$(arg robot_make)" />
+      <arg name="robot_model" value="$(arg robot_model)" />
+      <arg name="gripper_make" value="$(arg gripper_make)" />
+      <arg name="gripper_model" value="$(arg gripper_model)" />
+      <arg name="wrist_cam" value="$(arg wrist_cam)" />
+    </include>
   </group>
 
   <!-- The semantic description that corresponds to the URDF -->

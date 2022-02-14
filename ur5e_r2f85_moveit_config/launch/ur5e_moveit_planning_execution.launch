@@ -3,6 +3,12 @@
   <arg name="sim" default="false" />
   <arg name="limited" default="false"/>
   <arg name="debug" default="false" />
+  <arg name="sim_workstation" default="false" doc="If true, spawn robot atop simualted ARMada workstation in Gazebo world" />
+  <arg name="robot_make" default="" />
+  <arg name="robot_model" default="" />
+  <arg name="gripper_make" default="" doc="make of gripper (e.g. robotiq, sake_robotics, etc.)" />
+  <arg name="gripper_model" default="" doc="model of gripper (e.g. r2f85, ezgripper, etc.)" />
+  <arg name="wrist_cam" default="" />
     
   <!-- Remap follow_joint_trajectory -->
   <remap if="$(arg sim)" from="/follow_joint_trajectory" to="/arm_controller/follow_joint_trajectory"/>
@@ -12,5 +18,11 @@
     <arg name="limited" value="$(arg limited)" />
     <arg name="debug" value="$(arg debug)" />
     <arg name="sim" value="$(arg sim)" />
+    <arg name="sim_workstation" value="$(arg sim_workstation)" />
+    <arg name="robot_make" value="$(arg robot_make)" />
+    <arg name="robot_model" value="$(arg robot_model)" />
+    <arg name="gripper_make" value="$(arg gripper_make)" />
+    <arg name="gripper_model" value="$(arg gripper_model)" />
+    <arg name="wrist_cam" value="$(arg wrist_cam)" />
   </include>
 </launch>

@@ -34,10 +34,22 @@
   <include file="$(eval find(arg('robot_model') + '_moveit_config') + '/launch/' + arg('robot_model') + '_moveit_planning_execution.launch')" if="$(eval not arg('gripper_model'))">
       <arg name="sim" value="$(arg sim)" />
       <arg name="limited" value="$(arg limited)" />
+      <arg name="sim_workstation" value="$(arg sim_workstation)" />
+      <arg name="robot_make" value="$(arg robot_make)" />
+      <arg name="robot_model" value="$(arg robot_model)" />
+      <arg name="gripper_make" value="$(arg gripper_make)" />
+      <arg name="gripper_model" value="$(arg gripper_model)" />
+      <arg name="wrist_cam" value="$(arg wrist_cam)" />
   </include>
   <include file="$(eval find(arg('robot_model') + '_' + arg('gripper_model') + '_moveit_config') + '/launch/' + arg('robot_model') + '_moveit_planning_execution.launch')" unless="$(eval not arg('gripper_model'))">
       <arg name="sim" value="$(arg sim)" />
       <arg name="limited" value="$(arg limited)" />
+      <arg name="sim_workstation" value="$(arg sim_workstation)" />
+      <arg name="robot_make" value="$(arg robot_make)" />
+      <arg name="robot_model" value="$(arg robot_model)" />
+      <arg name="gripper_make" value="$(arg gripper_make)" />
+      <arg name="gripper_model" value="$(arg gripper_model)" />
+      <arg name="wrist_cam" value="$(arg wrist_cam)" />
   </include>
 
   <!-- Launch Rviz with moveit interface for robot -->
