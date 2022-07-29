@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="limited" default="false"  doc="If true, limits joint range [-PI, PI] on all joints." />
+  <arg name="paused" default="false" doc="Starts gazebo in paused mode" />
+  <arg name="gui" default="true" doc="Starts gazebo gui" />
+  <arg name="robot_make" default="universal_robot" doc="Indicates which robot manufacturer directory to look in" />
+  <arg name="robot_model" default="ur5e" doc="Indicates which robot model to use/load" />
+  <arg name="sim_workstation" default="false" doc="If true, load robot in Gazebo atop simulated ARMada workstation" />
+  <arg name="gripper_make" default="" doc="make of gripper (e.g. robotiq, sake_robotics, etc.)" />
+  <arg name="gripper_model" default="" doc="model of gripper (e.g. r2f85, ezgripper, etc.)" />
+  <arg name="wrist_cam" default="" doc="name of wrist cam (e.g. d435)" />
+  
+  <!-- startup simulated world -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" default="worlds/empty.world"/>
+    <arg name="paused" value="$(arg paused)"/>
+    <arg name="gui" value="$(arg gui)"/>
+  </include>
+
+  <!-- send robot urdf to param server -->
+  <include file="$(find armada_description)/universal_robot/launch/ure_upload.launch">
+    <arg name="limited" value="$(arg limited)"/>
+    <arg name="sim_workstation" value="$(arg sim_workstation)" />
+    <arg name="robot_make" value="$(arg robot_make)" />
+    <arg name="robot_model" value="$(arg robot_model)" />
+    <arg name="gripper_make" value="$(arg gripper_make)" />
+    <arg name="gripper_model" value="$(arg gripper_model)" />
+    <arg name="wrist_cam" value="$(arg wrist_cam)" />
+  </include>
+
+  <!-- push robot_description to factory and spawn robot in gazebo -->
+  <node name="spawn_gazebo_model" pkg="gazebo_ros" type="spawn_model" args="-urdf -param robot_description -model robot -x 0.0 -y 0.0 -z 0.01 -R 0.0 -P 0.0 -Y 0" respawn="false" output="screen" />
+
+  <include file="$(find armada_gazebo)/universal_robot/launch/controller_utils.launch"/>
+
+  <!-- Load controller configurations -->
+  <rosparam file="$(find armada_gazebo)/universal_robot/arm_controller_$(arg robot_model).yaml" command="load"/>
+  <rosparam file="$(find armada_description)/$(arg gripper_make)/$(arg gripper_model)_gripper_action_controller_parameters.yaml" command="load"
+        subst_value="true" unless="$(eval not arg('gripper_model'))"/>
+
+  <!-- Start the trajectory controllers -->
+
+  <!-- Without gripper -->
+  <node name="$(arg robot_model)_trajectory_controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+            output="screen" args="arm_controller"
+            if="$(eval not arg('gripper_model'))"/>
+
+  <!-- With gripper -->
+  <node name="$(arg robot_model)_controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+            output="screen" args="arm_controller $(arg gripper_model)_gripper_controller"
+            unless="$(eval not arg('gripper_model'))"/>
+
+</launch>
