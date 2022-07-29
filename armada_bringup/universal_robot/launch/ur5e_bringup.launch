@@ -25,8 +25,9 @@
 
   <!-- Robot model information for choosing correct launch/configuration files -->
   <arg name="limited" default="false"  doc="If true, limits joint range [-PI, PI] on all joints" />
-  <arg name="model" default="ur5" doc="Robot number model: 3, 5, or 10 (16 not currently implemented)"/>
   <arg name="sim_workstation" default="false" doc="Attaches robot to simulated ARMada workstation" />
+  <arg name="robot_make" default="" />
+  <arg name="robot_model" default="" />
   <arg name="gripper_make" default="" doc="make of gripper (e.g. robotiq, sake_robotics, etc.)" />
   <arg name="gripper_model" default="" doc="model of gripper (e.g. r2f85, ezgripper, etc.)" />
   <arg name="wrist_cam" default="d435_millibar" doc="Attaches wrist camera (and millibar mounts) to end of robot arm before gripper"/>
