@@ -675,7 +675,7 @@ Visualization Manager:
       Color: 255; 255; 255
       Color Transformer: RGB8
       Decay Time: 0
-      Enabled: true
+      Enabled: false
       Invert Rainbow: false
       Max Color: 255; 255; 255
       Min Color: 0; 0; 0
@@ -690,7 +690,7 @@ Visualization Manager:
       Unreliable: false
       Use Fixed Frame: true
       Use rainbow: true
-      Value: true
+      Value: false
     - Alpha: 1
       Autocompute Intensity Bounds: true
       Autocompute Value Bounds:
@@ -750,18 +750,18 @@ Visualization Manager:
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: -0.07360696792602539
-        Y: 0.06597274541854858
-        Z: 0.8000003099441528
+        X: 0
+        Y: 0
+        Z: 0.8199999928474426
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.20479699969291687
+      Pitch: 0.34979671239852905
       Target Frame: world
       Value: XYOrbit (rviz)
-      Yaw: 2.1817996501922607
+      Yaw: 2.0918045043945312
     Saved: ~
 Window Geometry:
   Displays:
@@ -779,5 +779,5 @@ Window Geometry:
   Views:
     collapsed: false
   Width: 1828
-  X: 54
+  X: 50
   Y: 28

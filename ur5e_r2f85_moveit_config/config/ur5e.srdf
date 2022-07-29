@@ -14,7 +14,7 @@
       <group name="endeffector" />
     </group>
     <group name="manipulator">
-        <chain base_link="base_link" tip_link="ee_link" />
+        <chain base_link="base_link" tip_link="tcp_link" />
     </group>
     <group name="endeffector">
         <joint name="gripper_base_joint" />
