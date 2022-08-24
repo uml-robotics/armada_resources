@@ -1,5 +1,29 @@
 <?xml version="1.0"?>
 <launch>
+    <!-- Robot model information for choosing correct launch/configuration files -->
+  <arg name="limited" default="false"  doc="If true, limits joint range [-PI, PI] on all joints" />
+  <arg name="sim_workstation" default="false" doc="Attaches robot to simulated ARMada workstation" />
+  <arg name="robot_make" default="" />
+  <arg name="robot_model" default="" />
+  <arg name="gripper_make" default="" doc="make of gripper (e.g. robotiq, sake_robotics, etc.)" />
+  <arg name="gripper_model" default="" doc="model of gripper (e.g. r2f85, ezgripper, etc.)" />
+  <arg name="wrist_cam" default="" doc="Attaches wrist camera (and millibar mounts) to end of robot arm before gripper"/>
+
+  <!-- robot model -->
+  <include file="$(find armada_description)/universal_robot/launch/ure_upload.launch">
+    <arg name="limited" value="$(arg limited)"/>
+    <arg name="sim_workstation" value="$(arg sim_workstation)" />
+    <arg name="robot_make" value="$(arg robot_make)" />
+    <arg name="robot_model" value="$(arg robot_model)" />
+    <arg name="gripper_make" value="$(arg gripper_make)"/>
+    <arg name="gripper_model" value="$(arg gripper_model)"/>
+    <arg name="wrist_cam" value="$(arg wrist_cam)" />
+  </include>
+
+  <!-- Convert joint states to /tf tranforms -->
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
+
+  <!-- Arguments for bringing up real robot -->
   <arg name="debug" default="false" doc="Debug flag that will get passed on to ur_control.launch"/>
   <arg name="use_tool_communication" doc="On e-Series robots tool communication can be enabled with this argument"/>
   <arg name="controller_config_file" doc="Config file used for defining the ROS-Control controllers."/>
@@ -22,27 +46,6 @@
   <arg name="tool_tcp_port" default="54321" doc="Port on which the robot controller publishes the tool comm interface. Only used, when `use_tool_communication` is set to true."/>
   <arg name="robot_description_file" doc="Robot description launch file."/>
   <arg name="headless_mode" default="false" doc="Automatically send URScript to robot to execute. On e-Series this does require the robot to be in 'remote-control' mode. With this, the URCap is not needed on the robot."/>
-
-  <!-- Robot model information for choosing correct launch/configuration files -->
-  <arg name="limited" default="false"  doc="If true, limits joint range [-PI, PI] on all joints" />
-  <arg name="model" default="ur5" doc="Robot number model: 3, 5, or 10 (16 not currently implemented)"/>
-  <arg name="sim_workstation" default="false" doc="Attaches robot to simulated ARMada workstation" />
-  <arg name="gripper_make" default="" doc="make of gripper (e.g. robotiq, sake_robotics, etc.)" />
-  <arg name="gripper_model" default="" doc="model of gripper (e.g. r2f85, ezgripper, etc.)" />
-  <arg name="wrist_cam" default="" doc="Attaches wrist camera (and millibar mounts) to end of robot arm before gripper"/>
-
-  <!-- robot model -->
-  <include file="$(find armada_description)/universal_robot/launch/ure_upload.launch">
-    <arg name="limited" value="$(arg limited)"/>
-    <arg name="model" value="$(arg model)" />
-    <arg name="sim_workstation" value="$(arg sim_workstation)" />
-    <arg name="gripper_make" value="$(arg gripper_make)"/>
-    <arg name="gripper_model" value="$(arg gripper_model)"/>
-    <arg name="wrist_cam" value="$(arg wrist_cam)" />
-  </include>
-
-  <!-- Convert joint states to /tf tranforms -->
-  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
 
   <include file="$(find armada_bringup)/universal_robot/launch/ur_control.launch">
     <arg name="debug" value="$(arg debug)"/>
