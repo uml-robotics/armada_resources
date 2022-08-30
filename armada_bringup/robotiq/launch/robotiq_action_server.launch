@@ -1,9 +1,0 @@
-<?xml version="1.0"?>
-<launch>
-
-  <arg name="gui" default="false" />
-  <arg name="ip_address" default="10.10.10.42" />
-
-  <node name="Robotiq2FGripperTcpNode" pkg="robotiq_2f_gripper_control" type="Robotiq2FGripperTcpNode.py" args="$(arg ip_address)"/>
-
-</launch>

@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="gripper_ip" default="10.10.10.42" />
+
+  <node name="Robotiq2FGripperTcpNode" pkg="robotiq_2f_gripper_control" type="Robotiq2FGripperTcpNode.py" args="$(arg gripper_ip)"/>
+  <node name="robotiq_2f_gripper_action_server_node" pkg="robotiq_2f_gripper_action_server" type="robotiq_2f_gripper_action_server_node" args="$(arg gripper_ip)" />
+  <node name="gripper_state_publishder" pkg="armada_bringup" type="gripper_state_publishder.py" />
+
+</launch>
