@@ -44,11 +44,11 @@ public:
     sensor_msgs::JointState joint_state;
 
     pos_val = msg.gPO;
-    joint_pos = {0.85 / (pos_val/255)};
+    joint_pos = 0.85 * (pos_val/255);
 
     ros::Time stamp = ros::Time(0);
     joint_state.name = {"finger_joint"};
-    joint_state.position[0] = joint_pos;
+    joint_state.position = {joint_pos};
     joint_state.header.stamp = stamp;
 
     pub.publish(joint_state);
