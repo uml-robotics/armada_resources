@@ -1,14 +1,48 @@
-cmake_minimum_required(VERSION 2.8.3)
+cmake_minimum_required(VERSION 3.0.2)
 project(armada_bringup)
 
-find_package(catkin REQUIRED)
+add_compile_options(-std=c++11)
 
-catkin_package()
+find_package(catkin REQUIRED COMPONENTS
+  roscpp
+  rospy
+  std_msgs
+  sensor_msgs
+  robotiq_2f_gripper_control
+)
 
-#if (CATKIN_ENABLE_TESTING)
-#  find_package(roslaunch REQUIRED)
-#  roslaunch_add_file_check(tests/some_test.xml)
-#endif()
+## Generate messages in the 'msg' folder
+#add_message_files(
+#  FILES
+#)
 
-install(DIRECTORY universal_robot
-  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})
+## Generate services in the 'srv' folder
+#add_service_files(
+#  FILES
+#)
+
+## Generate actions in the 'action' folder
+#add_action_files(
+#  FILES
+#)
+
+## Generate added msg and srv with any dependencies listed here
+#generate_messages(
+#  DEPENDENCIES
+#)
+
+#catkin_package(
+#  CATKIN_DEPENDS
+#)
+
+#include_directories(
+#  ${catkin_INCLUDE_DIRS}
+#)
+
+include_directories(
+  ${catkin_INCLUDE_DIRS}
+)
+
+add_executable(r2f85_joint_state_publisher robotiq/src/r2f85_joint_state_publisher.cpp)
+
+target_link_libraries(r2f85_joint_state_publisher ${catkin_LIBRARIES})
