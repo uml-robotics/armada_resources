@@ -35,14 +35,12 @@ find_package(catkin REQUIRED COMPONENTS
 #  CATKIN_DEPENDS
 #)
 
-#include_directories(
-#  ${catkin_INCLUDE_DIRS}
-#)
-
 include_directories(
   ${catkin_INCLUDE_DIRS}
 )
 
-add_executable(r2f85_joint_state_publisher robotiq/src/r2f85_joint_state_publisher.cpp)
+catkin_package()
+
+add_executable(r2f85_joint_state_publisher src/r2f85_joint_state_publisher.cpp)
 
 target_link_libraries(r2f85_joint_state_publisher ${catkin_LIBRARIES})
