@@ -4,5 +4,6 @@
 
   <node name="Robotiq2FGripperTcpNode" pkg="robotiq_2f_gripper_control" type="Robotiq2FGripperTcpNode.py" args="$(arg gripper_ip)"/>
   <node name="r2f85_control_server" pkg="armada_flexbe_utilities" type="r2f85_control_server" />
+  <node name="r2f85_joint_state_publisher" pkg="armada_bringup" type="r2f85_joint_state_publisher" />
 
 </launch>
