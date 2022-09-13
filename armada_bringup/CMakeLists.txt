@@ -6,8 +6,13 @@ add_compile_options(-std=c++11)
 find_package(catkin REQUIRED COMPONENTS
   roscpp
   rospy
+  genmsg
+  actionlib
+  actionlib_msgs
   std_msgs
   sensor_msgs
+  control_msgs
+  message_generation
   robotiq_2f_gripper_control
 )
 
@@ -31,16 +36,18 @@ find_package(catkin REQUIRED COMPONENTS
 #  DEPENDENCIES
 #)
 
-#catkin_package(
-#  CATKIN_DEPENDS
-#)
+catkin_package(
+  CATKIN_DEPENDS
+  message_runtime
+  actionlib_msgs
+)
 
 include_directories(
   ${catkin_INCLUDE_DIRS}
 )
 
-catkin_package()
-
+add_executable(r2f85_control_server src/actionserver/r2f85_control_server.cpp)
 add_executable(r2f85_joint_state_publisher src/r2f85_joint_state_publisher.cpp)
 
+target_link_libraries(r2f85_control_server ${catkin_LIBRARIES})
 target_link_libraries(r2f85_joint_state_publisher ${catkin_LIBRARIES})
