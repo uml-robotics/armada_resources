@@ -41,7 +41,7 @@
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
         <!-- <box size="0.01 0.01 0.01" /> -->
-        <mesh filename="package://armada_description/armada_tooling/meshes/d435_mount_link.dae" />
+        <mesh filename="package://armada_description/armada_tooling/meshes/d435_mount_link.STL"/>
       </geometry>
     </collision>
   </link>
@@ -71,7 +71,7 @@
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
         <!-- <box size="0.01 0.01 0.01" /> -->
-        <mesh filename="package://armada_description/armada_tooling/meshes/d435.dae" />
+        <mesh filename="package://armada_description/armada_tooling/meshes/d435.STL"/>
       </geometry>
     </collision>
   </link>
@@ -119,7 +119,7 @@
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
         <!-- <box size="0.01 0.01 0.01" /> -->
-        <mesh filename="package://armada_description/armada_tooling/meshes/millibar_adapters_link.dae" />
+        <mesh filename="package://armada_description/armada_tooling/meshes/millibar_adapters_link.STL"/>
       </geometry>
     </collision>
   </link>
@@ -151,7 +151,7 @@
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
         <!-- <box size="0.01 0.01 0.01" /> -->
-        <mesh filename="package://armada_description/armada_tooling/meshes/r85_network_adapter_link.dae" />
+        <mesh filename="package://armada_description/armada_tooling/meshes/r85_network_adapter_link.STL"/>
       </geometry>
     </collision>
   </link>
