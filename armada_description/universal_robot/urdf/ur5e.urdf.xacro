@@ -349,12 +349,6 @@
     </joint>
 
     <link name="${prefix}ee_link">
-      <collision>
-        <geometry>
-          <box size="0.01 0.01 0.01"/>
-        </geometry>
-        <origin rpy="0 0 0" xyz="-0.01 0 0"/>
-      </collision>
     </link>
 
     <xacro:ur_arm_transmission prefix="${prefix}" />
