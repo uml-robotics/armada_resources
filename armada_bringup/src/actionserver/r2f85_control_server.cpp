@@ -40,9 +40,9 @@ public:
   }
 
   /**
-   * Plan a cartesian path.
+   * TODO.
    *
-   * Plan a cartesian path along one or more set points using the MoveIt interface.
+   * TODO.
    *
    * @param goal GripperCommand action goal: control_msgs/GripperCommand, a gripper command target position.
    */
