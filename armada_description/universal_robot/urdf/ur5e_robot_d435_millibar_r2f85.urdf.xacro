@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro"
+       name="ur5e" >
+
+  <!-- common stuff -->
+  <xacro:include filename="$(find armada_gazebo)/universal_robot/urdf/common.gazebo.xacro" />
+
+  <!-- ur5e -->
+  <xacro:include filename="$(find armada_description)/universal_robot/urdf/ur5e.urdf.xacro" />
+
+  <!-- realsense d435i mount + millibar (robot & gripper side) adapters -->
+  <xacro:include filename="$(find armada_description)/armada_tooling/urdf/d435_millibar_macro.urdf.xacro" />
+
+  <!-- robotiq_2f_85 -->
+  <xacro:include filename="$(find armada_description)/robotiq/urdf/robotiq_2f_85_macro.xacro" />
+  <xacro:include filename="$(find armada_gazebo)/robotiq/urdf/robotiq_2f_85_transmission_macro.xacro" />
+
+  <!-- arm -->
+  <xacro:ur5e_robot prefix="" joint_limited="false" />
+
+  <!-- camera mount/millibar stuff -->
+  <xacro:load_d435_millibar parent="ee_link" prefix="" />
+  
+  <!-- gripper -->
+  <xacro:load_gripper parent="tooling_ee_link"  prefix=""/>
+  <xacro:load_gazebo_gripper_transmissions prefix=""/>
+
+  <link name="world" />
+  
+  <joint name="connect_world_and_base_link" type="fixed">
+    <child link="world" />
+    <parent link="base_link" />
+    <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
+    <!-- <origin xyz="0.0 0.0 0.41" rpy="0.0 0.0 0.0" /> -->
+    <!-- <origin xyz="0.0 0.0 0.00475" rpy="0.0 0.0 ${pi/2}" /> -->
+  </joint>
+
+</robot>
