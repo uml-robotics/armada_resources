@@ -83,6 +83,21 @@
     <axis xyz="0 0 0" />
   </joint>
 
+  <!-- THIS IS THE EXPERIMENTAL CAMERA WRIST BIT -->
+  <!-- THIS IS THE EXPERIMENTAL CAMERA WRIST BIT -->
+  <!-- THIS IS THE EXPERIMENTAL CAMERA WRIST BIT -->
+  <!-- THIS IS THE EXPERIMENTAL CAMERA WRIST BIT -->
+  <link name="camera_wrist_link"/>
+  <joint name="${prefix}d435_to_camera_wrist_joint" type="fixed">
+    <parent link="${prefix}d435"/>
+    <child link="${prefix}camera_wrist_link"/>
+    <origin xyz="0.0175 0.0 0.025" rpy="0.0 -${pi/2} -${pi/2}"/>
+   </joint>
+   <!-- THIS IS THE EXPERIMENTAL CAMERA WRIST BIT -->
+   <!-- THIS IS THE EXPERIMENTAL CAMERA WRIST BIT -->
+   <!-- THIS IS THE EXPERIMENTAL CAMERA WRIST BIT -->
+   <!-- THIS IS THE EXPERIMENTAL CAMERA WRIST BIT -->
+
   <link name="${prefix}d435_inter_link" />
 
   <joint name="${prefix}d435_to_d435_inter_joint" type="fixed">
