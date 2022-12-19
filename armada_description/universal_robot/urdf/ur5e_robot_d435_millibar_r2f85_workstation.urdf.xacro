@@ -39,7 +39,6 @@
     <origin xyz="0.0 0.0 0.41" rpy="0.0 0.0 0.0" />    
   </joint>
 
-  <!-- needs to be like kinova where root link is an argument -->
   <joint name="connect_table_and_arm" type="fixed">
     <parent link="table_mounting_plate_link" />
     <child link = "base_link" />
