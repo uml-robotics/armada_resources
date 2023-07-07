@@ -28,8 +28,17 @@
     <arg name="wrist_cam" value="$(arg wrist_cam)" />
   </include>
 
+  <!-- set robot z offset to 0.4 for these -->
+  <group unless="$(eval sim_workstation == 'true')" >
+    <param name="table" command="$(find xacro)/xacro $(find armada_description)/armada_test_station/urdf/table.sdf" />
+    <param name="platform" command="$(find xacro)/xacro $(find armada_description)/armada_test_station/urdf/platform.urdf" />
+    <node name="spawn_platform" pkg="gazebo_ros" type="spawn_model" args="-param platform -urdf -model platform" output="screen"/>
+    <node name="spawn_table" pkg="gazebo_ros" type="spawn_model" args="-param table -sdf -x 0.5 -model table" output="screen"/>
+
   <!-- push robot_description to factory and spawn robot in gazebo -->
-  <node name="spawn_gazebo_model" pkg="gazebo_ros" type="spawn_model" args="-urdf -param robot_description -model robot -x 0.0 -y 0.0 -z 0.01 -R 0.0 -P 0.0 -Y 0" respawn="false" output="screen" />
+    <node name="spawn_gazebo_model" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" 
+        args="-urdf -param robot_description -model robot -x 0.0 -y 0.0 -z 0.4 -R 0.0 -P 0.0 -Y 3.1416" />
+  </group>
 
   <include file="$(find armada_gazebo)/universal_robot/launch/controller_utils.launch"/>
 

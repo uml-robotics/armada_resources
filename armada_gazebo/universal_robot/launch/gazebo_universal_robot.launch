@@ -30,7 +30,7 @@
       <arg name="wrist_cam" value="$(arg wrist_cam)" />
   </include>
   
-  <!-- Launch gazebo controllers for robot -->
+  <!-- Launch gazebo controllers for robot without gripper -->
   <include file="$(eval find(arg('robot_model') + '_moveit_config') + '/launch/' + arg('robot_model') + '_moveit_planning_execution.launch')" if="$(eval not arg('gripper_model'))">
       <arg name="sim" value="$(arg sim)" />
       <arg name="limited" value="$(arg limited)" />
@@ -41,6 +41,8 @@
       <arg name="gripper_model" value="$(arg gripper_model)" />
       <arg name="wrist_cam" value="$(arg wrist_cam)" />
   </include>
+
+  <!-- Launch gazebo controllers for robot with gripper -->
   <include file="$(eval find(arg('robot_model') + '_' + arg('gripper_model') + '_moveit_config') + '/launch/' + arg('robot_model') + '_moveit_planning_execution.launch')" unless="$(eval not arg('gripper_model'))">
       <arg name="sim" value="$(arg sim)" />
       <arg name="limited" value="$(arg limited)" />

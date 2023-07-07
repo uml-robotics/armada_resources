@@ -18,18 +18,20 @@
     <!-- WRIST CAMERA -->
     <gazebo reference="${prefix}d435_inter_link">
       <sensor type="depth" name="wrist_camera">
+        <always_on>1</always_on>
+	    <visualize>true</visualize>
         <update_rate>30.0</update_rate>
         <camera>
           <pose>0.0 0.0 0.0 0.0 0.0 0.0</pose>
-          <horizontal_fov>1.50098</horizontal_fov>
+          <horizontal_fov>0.9</horizontal_fov>
           <image>
-            <width>1280</width>
-            <height>720</height>
+            <width>1024</width>
+            <height>1024</height>
             <format>R8G8B8</format>
           </image>
           <clip>
-            <near>0.02</near>
-            <far>300</far>
+            <near>0.01</near>
+            <far>3</far>
           </clip>
           <noise>
             <type>gaussian</type>
@@ -49,7 +51,7 @@
           <pointCloudTopicName>/camera_wrist/depth/points</pointCloudTopicName>
           <frameName>${prefix}wrist_optical</frameName>
           <pointCloudCutoff>0.1</pointCloudCutoff>
-          <pointCloudCutoffMax>10</pointCloudCutoffMax>
+          <pointCloudCutoffMax>3</pointCloudCutoffMax>
         </plugin>
       </sensor>
     </gazebo>
