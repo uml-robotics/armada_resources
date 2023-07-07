@@ -14,6 +14,7 @@ find_package(catkin REQUIRED COMPONENTS
   control_msgs
   message_generation
   robotiq_2f_gripper_control
+  tf
 )
 
 ## Generate messages in the 'msg' folder

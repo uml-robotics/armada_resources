@@ -32,7 +32,7 @@ public:
    */
   R2f85GripperControlAction(ros::NodeHandle nh) :
     nh_(nh),
-    R2f85GripperCommandServer_(nh, "r2f85_gripper_command", boost::bind(&R2f85GripperControlAction::r2f85GripperCommand, this, _1), false)
+    R2f85GripperCommandServer_(nh, "r2f85_gripper_controller/gripper_cmd", boost::bind(&R2f85GripperControlAction::r2f85GripperCommand, this, _1), false)
   {
     gripper_pub = nh_.advertise<robotiq_2f_gripper_control::Robotiq2FGripper_robot_output>("/Robotiq2FGripperRobotOutput", 10);
     gripper_sub = nh_.subscribe("/Robotiq2FGripperRobotInput", 10, &R2f85GripperControlAction::gripperStateCallback, this);
