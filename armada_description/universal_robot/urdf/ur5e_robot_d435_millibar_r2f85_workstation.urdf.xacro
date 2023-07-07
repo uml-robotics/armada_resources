@@ -19,7 +19,7 @@
   <xacro:include filename="$(find armada_gazebo)/robotiq/urdf/robotiq_2f_85_transmission_macro.xacro" />
 
   <!-- arm -->
-  <xacro:ur5e_robot prefix="" joint_limited="false" />
+  <xacro:ur5e_robot prefix="" joint_limited="false" parent="world"/>
 
   <!-- camera mount/millibar stuff -->
   <xacro:load_d435_millibar parent="ee_link" prefix="" />

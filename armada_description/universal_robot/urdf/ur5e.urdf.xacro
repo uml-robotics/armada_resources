@@ -14,7 +14,7 @@
     </inertial>
   </xacro:macro>
 
-  <xacro:macro name="ur5e_robot" params="prefix joint_limited
+  <xacro:macro name="ur5e_robot" params="prefix joint_limited parent
     shoulder_pan_lower_limit:=${-pi}    shoulder_pan_upper_limit:=${pi}
     shoulder_lift_lower_limit:=${-pi}    shoulder_lift_upper_limit:=${pi}
     elbow_joint_lower_limit:=${-pi}    elbow_joint_upper_limit:=${pi}
@@ -85,7 +85,17 @@
     <xacro:property name="elbow_radius" value="0.060" />      <!-- manually measured -->
     <xacro:property name="forearm_radius" value="0.040" />    <!-- manually measured -->
     <xacro:property name="wrist_radius" value="0.045" />      <!-- manually measured -->
+    
+    <!-- <link name="world" /> -->
 
+    <joint name="${prefix}base_link_joint" type="fixed">
+        <parent link="${parent}"/>
+        <child link="base_link"/>
+        <origin rpy="0 0 0" xyz="0 0 0"/>
+        <!-- for simulation -->
+        <dynamics damping="1.0"/>
+        <!-- end for simulation -->
+      </joint>
 
     <link name="${prefix}base_link" >
       <visual>
