@@ -189,15 +189,5 @@
     <axis xyz="0 0 0" />
   </joint>
 
-  <!-- dummy tcp_link for controlling -->
-  <link name="${prefix}tcp_link"/>
-
-  <joint name="${prefix}tcpip_adapter_to_tcp_joint" type="fixed">
-    <origin xyz="0.0 0.0 0.14" rpy="0 0 0" />
-    <parent link="${prefix}r85_network_adapter_link" />
-    <child link="${prefix}tcp_link" />
-    <axis xyz="0 0 0" />
-  </joint>
-
   </xacro:macro>
 </robot>
