@@ -70,8 +70,8 @@ public:
 
     try {
       tf::TransformListener listener;
-      listener.waitForTransform("base_link", "left_outer_knuckle", ros::Time::now(), ros::Duration(3.0) );
-      listener.lookupTransform("base_link", "left_outer_knuckle", ros::Time::now(), stamped_finger_tf);
+      listener.waitForTransform("base_link", "robotiq_arg2f_base_link", ros::Time::now(), ros::Duration(3.0) );
+      listener.lookupTransform("base_link", "robotiq_arg2f_base_link", ros::Time::now(), stamped_finger_tf);
     } catch (tf::TransformException err) {
       ROS_ERROR("%s", err.what());
     }
@@ -80,6 +80,9 @@ public:
     tf::Transform finger_tf = stamped_finger_tf * finger_tf_;
 
     stamped_finger_tf.setData(finger_tf);
+    stamped_finger_tf.child_frame_id_ = "left_outer_knuckle";
+    stamped_finger_tf.frame_id_ = "robotiq_arg2f_base_link";
+    stamped_finger_tf.stamp_ = ros::Time::now();
 
     finger_tf_vector.push_back(stamped_finger_tf);
 
@@ -95,14 +98,13 @@ int main(int argc, char **argv)
   ros::NodeHandle nh;
   ros::Rate loop_rate(10);
 
-  ros::spin();
-
   JointStatePublisher jointStatePublisher = JointStatePublisher(nh);
   ROS_WARN("r2f85_joint_state_publisher node Ready.");
 
   while(ros::ok()){
     jointStatePublisher.publish_transforms();
-    //loop_rate.sleep();
+    loop_rate.sleep();
+    ros::spinOnce();
   }
 
   return 0;
