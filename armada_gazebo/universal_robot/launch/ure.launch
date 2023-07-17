@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <launch>
   <arg name="limited" default="false"  doc="If true, limits joint range [-PI, PI] on all joints." />
-  <arg name="paused" default="false" doc="Starts gazebo in paused mode" />
+  <arg name="paused" default="true" doc="Starts gazebo in paused mode" />
   <arg name="gui" default="true" doc="Starts gazebo gui" />
   <arg name="robot_make" default="universal_robot" doc="Indicates which robot manufacturer directory to look in" />
   <arg name="robot_model" default="ur5e" doc="Indicates which robot model to use/load" />
@@ -9,6 +9,7 @@
   <arg name="gripper_make" default="" doc="make of gripper (e.g. robotiq, sake_robotics, etc.)" />
   <arg name="gripper_model" default="" doc="model of gripper (e.g. r2f85, ezgripper, etc.)" />
   <arg name="wrist_cam" default="" doc="name of wrist cam (e.g. d435)" />
+  <arg name="quick_changer" default="" doc="name of quick change hardware (e.g. millibar)" />
   
   <!-- startup simulated world -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
@@ -26,16 +27,33 @@
     <arg name="gripper_make" value="$(arg gripper_make)" />
     <arg name="gripper_model" value="$(arg gripper_model)" />
     <arg name="wrist_cam" value="$(arg wrist_cam)" />
+    <arg name="quick_changer" value="$(arg quick_changer)" />
   </include>
 
-  <!-- set robot z offset to 0.4 for these -->
-  <group unless="$(eval sim_workstation == 'true')" >
+  <!-- <group if="$(arg sim_workstation)" > -->
+    <!-- <node name="spawn_gazebo_model" pkg="gazebo_ros" type="spawn_model" args="-urdf -param robot_description -model robot -x 0.0 -y 0.0 -z 0.01 -R 0.0 -P 0.0 -Y 0.0" respawn="false" output="screen" /> -->
+  <!-- </group> -->
+
+  <group if="$(arg sim_workstation)" >
+    <param name="sim_workstation" command="$(find xacro)/xacro $(find armada_description)/armada_test_station/urdf/sim_workstation.sdf" />
+
+    <node name="spawn_sim_workstation" pkg="gazebo_ros" type="spawn_model" args="-param sim_workstation -sdf -x 0.0 -model sim_workstation" output="screen"/>
+    <node name="spawn_gazebo_model" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" 
+        args="-urdf -param robot_description -model robot -x 0.0 -y 0.0 -z 1.03 -R 0.0 -P 0.0 -Y 3.1416
+        -J elbow_joint -1.5708
+        -J shoulder_lift_joint -1.5708
+        -J shoulder_pan_joint 0
+        -J wrist_1_joint -1.5708
+        -J wrist_2_joint 1.5708
+        -J wrist_3_joint 0" />
+  </group>
+
+  <group unless="$(arg sim_workstation)" >
     <param name="table" command="$(find xacro)/xacro $(find armada_description)/armada_test_station/urdf/table.sdf" />
     <param name="platform" command="$(find xacro)/xacro $(find armada_description)/armada_test_station/urdf/platform.urdf" />
+
     <node name="spawn_platform" pkg="gazebo_ros" type="spawn_model" args="-param platform -urdf -model platform" output="screen"/>
     <node name="spawn_table" pkg="gazebo_ros" type="spawn_model" args="-param table -sdf -x 0.5 -model table" output="screen"/>
-
-  <!-- push robot_description to factory and spawn robot in gazebo -->
     <node name="spawn_gazebo_model" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" 
         args="-urdf -param robot_description -model robot -x 0.0 -y 0.0 -z 0.4 -R 0.0 -P 0.0 -Y 3.1416" />
   </group>

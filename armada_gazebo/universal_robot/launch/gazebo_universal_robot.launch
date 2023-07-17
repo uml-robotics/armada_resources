@@ -15,6 +15,7 @@
   <arg name="gripper_make" default="" doc="make of gripper (e.g. robotiq, sake_robotics, etc.)" />
   <arg name="gripper_model" default="" doc="model of gripper (e.g. r2f85, ezgripper, etc.)" />
   <arg name="wrist_cam" default="" doc="Attaches wrist camera (and millibar mounts) to end of robot arm before gripper (d435_millibar)"/>
+  <arg name="quick_changer" default="" doc="name of quick change hardware (e.g. millibar)" />
 
   <arg name="gripper_name" default="$(eval '_' + gripper_model)" unless="$(eval gripper_model == '')"/>
   <arg name="gripper_name" default="" if="$(eval gripper_model == '')"/>
@@ -31,6 +32,7 @@
       <arg name="gripper_make" value="$(arg gripper_make)" />
       <arg name="gripper_model" value="$(arg gripper_model)" />
       <arg name="wrist_cam" value="$(arg wrist_cam)" />
+      <arg name="quick_changer" value="$(arg quick_changer)" />
   </include>
 
   <!-- Launch gazebo controllers for robot with gripper -->
@@ -43,6 +45,7 @@
       <arg name="gripper_make" value="$(arg gripper_make)" />
       <arg name="gripper_model" value="$(arg gripper_model)" />
       <arg name="wrist_cam" value="$(arg wrist_cam)" />
+      <arg name="quick_changer" value="$(arg quick_changer)" />
   </include>
 
   <!-- Launch Rviz with moveit interface for robot -->
