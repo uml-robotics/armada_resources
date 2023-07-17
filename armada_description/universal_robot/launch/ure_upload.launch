@@ -8,51 +8,24 @@
   <arg name="gripper_make" default="" doc="make of gripper (e.g. robotiq, sake_robotics, etc.)" />
   <arg name="gripper_model" default="" doc="model of gripper (e.g. r2f85, ezgripper, etc.)" />
   <arg name="wrist_cam" default="" />
+  <arg name="quick_changer" default="" />
 
-  <group unless="$(arg limited)" >
-      <group unless="$(arg sim_workstation)" >
-	  <group unless="$(eval wrist_cam == '')">
-              <param unless="$(eval gripper_model == '')" name="robot_description" command="$(find xacro)/xacro --inorder '$(find armada_description)/$(arg robot_make)/urdf/$(arg robot_model)_robot_$(arg wrist_cam)_$(arg gripper_model).urdf.xacro'" />
-              <param if="$(eval gripper_model == '')" name="robot_description" command="$(find xacro)/xacro --inorder '$(find armada_description)/$(arg robot_make)/urdf/$(arg robot_model)_robot_$(arg wrist_cam).urdf.xacro'" />
-	  </group>
-	  <group if="$(eval wrist_cam == '')">
-              <param unless="$(eval gripper_model == '')" name="robot_description" command="$(find xacro)/xacro --inorder '$(find armada_description)/$(arg robot_make)/urdf/$(arg robot_model)_robot_$(arg gripper_model).urdf.xacro'" />
-              <param if="$(eval gripper_model == '')" name="robot_description" command="$(find xacro)/xacro --inorder '$(find armada_description)/$(arg robot_make)/urdf/$(arg robot_model)_robot.urdf.xacro'" />
-	  </group>
-      </group>
-      <group if="$(arg sim_workstation)" >
-	  <group unless="$(eval wrist_cam == '')">
-              <param unless="$(eval gripper_model == '')" name="robot_description" command="$(find xacro)/xacro --inorder '$(find armada_description)/$(arg robot_make)/urdf/$(arg robot_model)_robot_$(arg wrist_cam)_$(arg gripper_model)_workstation.urdf.xacro'" />
-              <param if="$(eval gripper_model == '')" name="robot_description" command="$(find xacro)/xacro --inorder '$(find armada_description)/$(arg robot_make)/urdf/$(arg robot_model)_robot_$(arg wrist_cam)_workstation.urdf.xacro'" />
-	  </group>
-	  <group if="$(eval wrist_cam == '')">
-              <param unless="$(eval gripper_model == '')" name="robot_description" command="$(find xacro)/xacro --inorder '$(find armada_description)/$(arg robot_make)/urdf/$(arg robot_model)_robot_$(arg gripper_model)_workstation.urdf.xacro'" />
-              <param if="$(eval gripper_model == '')" name="robot_description" command="$(find xacro)/xacro --inorder '$(find armada_description)/$(arg robot_make)/urdf/$(arg robot_model)_robot_workstation.urdf.xacro'" />
-	  </group>
-      </group>
-  </group>
+  <!-- robot name arg -->
+  <arg name="robot_name" default="$(eval robot_model + '_robot')" unless="$(arg limited)" />
+  <arg name="robot_name" default="$(eval robot_model + '_joint_limited_robot')" if="$(arg limited)"/>
 
-  <group if="$(arg limited)" >
-      <group unless="$(arg sim_workstation)" >
-	  <group unless="$(eval wrist_cam == '')">
-              <param unless="$(eval gripper_model == '')" name="robot_description" command="$(find xacro)/xacro --inorder '$(find armada_description)/$(arg robot_make)/urdf/$(arg robot_model)_joint_limited_robot_$(arg wrist_cam)_$(arg gripper_model).urdf.xacro'" />
-              <param if="$(eval gripper_model == '')" name="robot_description" command="$(find xacro)/xacro --inorder '$(find armada_description)/$(arg robot_make)/urdf/$(arg robot_model)_joint_limited_robot_$(arg wrist_cam).urdf.xacro'" />
-	  </group>
-	  <group if="$(eval wrist_cam == '')">
-              <param unless="$(eval gripper_model == '')" name="robot_description" command="$(find xacro)/xacro --inorder '$(find armada_description)/$(arg robot_make)/urdf/$(arg robot_model)_joint_limited_robot_$(arg gripper_model).urdf.xacro'" />
-              <param if="$(eval gripper_model == '')" name="robot_description" command="$(find xacro)/xacro --inorder '$(find armada_description)/$(arg robot_make)/urdf/$(arg robot_model)_joint_limited_robot.urdf.xacro'" />
-	  </group>
-      </group>
-      <group if="$(arg sim_workstation)" >
-	  <group unless="$(eval wrist_cam == '')">
-              <param unless="$(eval gripper_model == '')" name="robot_description" command="$(find xacro)/xacro --inorder '$(find armada_description)/$(arg robot_make)/urdf/$(arg robot_model)_joint_limited_robot_$(arg wrist_cam)_$(arg gripper_model)_workstation.urdf.xacro'" />
-              <param if="$(eval gripper_model == '')" name="robot_description" command="$(find xacro)/xacro --inorder '$(find armada_description)/$(arg robot_make)//rdf/$(arg robot_model)_joint_limited_robot_$(arg wrist_cam)_workstation.urdf.xacro'" />
-	  </group>
-	  <group if="$(eval wrist_cam == '')">
-              <param unless="$(eval gripper_model == '')" name="robot_description" command="$(find xacro)/xacro --inorder '$(find armada_description)/$(arg robot_make)/urdf/$(arg robot_model)_joint_limited_robot_$(arg gripper_model)_workstation.urdf.xacro'" />
-              <param if="$(eval gripper_model == '')" name="robot_description" command="$(find xacro)/xacro --inorder '$(find armada_description)/$(arg robot_make)/urdf/$(arg robot_model)_joint_limited_robot_workstation.urdf.xacro'" />
-	  </group>
-      </group>
-  </group>
+  <!-- vision hardware arg   -->
+  <arg name="vision" default="$(eval '_' + wrist_cam)" unless="$(eval wrist_cam == '')"/>
+  <arg name="vision" default="" if="$(eval wrist_cam == '')" />
+
+  <!-- adapter hardware arg   -->
+  <arg name="adapter" default="$(eval '_' + quick_changer)" unless="$(eval quick_changer == '')" />
+  <arg name="adapter" default="" if="$(eval quick_changer == '')"/>
+
+  <!-- gripper name arg -->
+  <arg name="gripper_name" default="$(eval '_' + gripper_model)" unless="$(eval gripper_model == '')" />
+  <arg name="gripper_name" default="" if="$(eval gripper_model == '')"/>
+
+  <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find armada_description)/$(arg robot_make)/urdf/$(arg robot_name)$(arg vision)$(arg adapter)$(arg gripper_name).urdf.xacro'" />
 
 </launch>
