@@ -54,8 +54,6 @@ Visualization Manager:
       MoveIt_Planning_Time: 5
       MoveIt_Use_Cartesian_Path: false
       MoveIt_Use_Constraint_Aware_IK: true
-      MoveIt_Warehouse_Host: 127.0.0.1
-      MoveIt_Warehouse_Port: 33829
       MoveIt_Workspace:
         Center:
           X: 0
@@ -70,22 +68,6 @@ Visualization Manager:
         Color Enabled: false
         Interrupt Display: false
         Links:
-          /table_left_optical:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-          /table_rear_optical:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-          /table_right_optical:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-          /table_wrist_optical:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
           All Links Enabled: true
           Expand Joint Details: false
           Expand Link Details: false
@@ -193,71 +175,6 @@ Visualization Manager:
             Show Trail: false
             Value: true
           shoulder_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          table_base_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          table_left_camera_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          table_left_horizontal_arm_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          table_left_vertical_arm_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          table_mounting_plate_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          table_pedestal_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          table_rear_camera_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          table_rear_horizontal_arm_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          table_rear_vertical_arm_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          table_right_camera_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          table_right_horizontal_arm_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          table_right_vertical_arm_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          table_wrist_camera_link:
             Alpha: 1
             Show Axes: false
             Show Trail: false
@@ -315,6 +232,7 @@ Visualization Manager:
         State Display Time: 0.05 s
         Trail Step Size: 1
         Trajectory Topic: move_group/display_planned_path
+        Use Sim Time: false
       Planning Metrics:
         Payload: 1
         Show Joint Torques: false
@@ -346,22 +264,6 @@ Visualization Manager:
       Scene Robot:
         Attached Body Color: 150; 50; 150
         Links:
-          /table_left_optical:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-          /table_rear_optical:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-          /table_right_optical:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-          /table_wrist_optical:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
           All Links Enabled: true
           Expand Joint Details: false
           Expand Link Details: false
@@ -469,71 +371,6 @@ Visualization Manager:
             Show Trail: false
             Value: true
           shoulder_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          table_base_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          table_left_camera_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          table_left_horizontal_arm_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          table_left_vertical_arm_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          table_mounting_plate_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          table_pedestal_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          table_rear_camera_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          table_rear_horizontal_arm_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          table_rear_vertical_arm_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          table_right_camera_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          table_right_horizontal_arm_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          table_right_vertical_arm_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          table_wrist_camera_link:
             Alpha: 1
             Show Axes: false
             Show Trail: false
@@ -807,25 +644,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/XYOrbit
-      Distance: 2.413466453552246
+      Distance: 3.0274524688720703
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
+      Field of View: 0.7853981852531433
       Focal Point:
-        X: 0.008196145296096802
-        Y: -0.04755866527557373
-        Z: 0.8199986815452576
+        X: 0
+        Y: 0
+        Z: 0
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.19979795813560486
+      Pitch: 0.16979797184467316
       Target Frame: world
-      Value: XYOrbit (rviz)
-      Yaw: 2.146810293197632
+      Yaw: 2.3718113899230957
     Saved: ~
 Window Geometry:
   Displays:
