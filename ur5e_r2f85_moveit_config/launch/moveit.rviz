@@ -5,8 +5,7 @@ Panels:
     Property Tree Widget:
       Expanded:
         - /Global Options1
-        - /MotionPlanning1
-        - /MotionPlanning1/Planning Request1
+        - /camera_wrist (real)1/Status1
       Splitter Ratio: 0.7425600290298462
     Tree Height: 451
   - Class: rviz/Help
@@ -179,10 +178,6 @@ Visualization Manager:
             Show Axes: false
             Show Trail: false
             Value: true
-          tcp_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
           tool0:
             Alpha: 1
             Show Axes: false
@@ -375,10 +370,6 @@ Visualization Manager:
             Show Axes: false
             Show Trail: false
             Value: true
-          tcp_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
           tool0:
             Alpha: 1
             Show Axes: false
@@ -531,7 +522,7 @@ Visualization Manager:
       Size (Pixels): 3
       Size (m): 0.009999999776482582
       Style: Points
-      Topic: /camera_wrist/depth/points
+      Topic: /camera_wrist/depth_registered/points
       Unreliable: false
       Use Fixed Frame: true
       Use rainbow: true
@@ -559,7 +550,7 @@ Visualization Manager:
       Size (Pixels): 3
       Size (m): 0.009999999776482582
       Style: Points
-      Topic: /camera_wrist/depth_registered/points
+      Topic: /camera_wrist/depth_registered/points/filtered
       Unreliable: false
       Use Fixed Frame: true
       Use rainbow: true
@@ -644,7 +635,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/XYOrbit
-      Distance: 3.0274524688720703
+      Distance: 1.49668288230896
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -652,17 +643,17 @@ Visualization Manager:
         Value: false
       Field of View: 0.7853981852531433
       Focal Point:
-        X: 0
-        Y: 0
+        X: -0.40587514638900757
+        Y: 0.08771610260009766
         Z: 0
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.16979797184467316
+      Pitch: 0.35979801416397095
       Target Frame: world
-      Yaw: 2.3718113899230957
+      Yaw: 2.7718207836151123
     Saved: ~
 Window Geometry:
   Displays:
