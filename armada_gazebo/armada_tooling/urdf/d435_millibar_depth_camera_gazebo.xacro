@@ -46,9 +46,9 @@
           <cameraName>camera_wrist</cameraName>
           <imageTopicName>/camera_wrist/color/image_raw</imageTopicName>
           <cameraInfoTopicName>/camera_wrist/color/camera_info</cameraInfoTopicName>
-          <depthImageTopicName>/camera_wrist/depth/image_raw</depthImageTopicName>
-          <depthImageCameraInfoTopicName>/camera_wrist/depth/camera_info</depthImageCameraInfoTopicName>
-          <pointCloudTopicName>/camera_wrist/depth/points</pointCloudTopicName>
+          <depthImageTopicName>/camera_wrist/depth_registered/image_raw</depthImageTopicName>
+          <depthImageCameraInfoTopicName>/camera_wrist/depth_registered/camera_info</depthImageCameraInfoTopicName>
+          <pointCloudTopicName>/camera_wrist/depth_registered/points</pointCloudTopicName>
           <frameName>${prefix}wrist_optical</frameName>
           <pointCloudCutoff>0.1</pointCloudCutoff>
           <pointCloudCutoffMax>3</pointCloudCutoffMax>
