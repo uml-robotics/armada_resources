@@ -14,12 +14,8 @@
     xmlns:xacro="http://ros.org/wiki/xacro">
   
   <xacro:macro name="d435_millibar" params="prefix parent">
-  <!-- add in a namespace param and update lines 82/83 & 89/90 where a namespace would be used for wrist cam -->
 
-  <xacro:include filename="$(find armada_gazebo)/armada_tooling/urdf/d435_millibar_model_gazebo.xacro" />
   <xacro:include filename="$(find armada_gazebo)/armada_tooling/urdf/d435_millibar_depth_camera_gazebo.xacro" />
-
-  <xacro:d435_millibar_gazebo prefix="${prefix}" />
   <xacro:d435_millibar_depth_camera_gazebo prefix="${prefix}" />
 
   <link name="${prefix}d435_mount_link">
@@ -40,7 +36,6 @@
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <!-- <box size="0.01 0.01 0.01" /> -->
         <mesh filename="package://armada_description/armada_tooling/meshes/d435_mount_link.STL"/>
       </geometry>
     </collision>
@@ -70,7 +65,6 @@
     <collision>
       <origin xyz="0 0 0" rpy="0 0 0" />
       <geometry>
-        <!-- <box size="0.01 0.01 0.01" /> -->
         <mesh filename="package://armada_description/armada_tooling/meshes/d435.STL"/>
       </geometry>
     </collision>
@@ -83,20 +77,12 @@
     <axis xyz="0 0 0" />
   </joint>
 
-  <!-- THIS IS THE EXPERIMENTAL CAMERA WRIST BIT -->
-  <!-- THIS IS THE EXPERIMENTAL CAMERA WRIST BIT -->
-  <!-- THIS IS THE EXPERIMENTAL CAMERA WRIST BIT -->
-  <!-- THIS IS THE EXPERIMENTAL CAMERA WRIST BIT -->
-  <link name="camera_wrist_link"/>
+  <link name="${prefix}camera_wrist_link"/>
   <joint name="${prefix}d435_to_camera_wrist_joint" type="fixed">
     <parent link="${prefix}d435"/>
     <child link="${prefix}camera_wrist_link"/>
     <origin xyz="0.0175 0.0 0.025" rpy="0.0 -${pi/2} -${pi/2}"/>
    </joint>
-   <!-- THIS IS THE EXPERIMENTAL CAMERA WRIST BIT -->
-   <!-- THIS IS THE EXPERIMENTAL CAMERA WRIST BIT -->
-   <!-- THIS IS THE EXPERIMENTAL CAMERA WRIST BIT -->
-   <!-- THIS IS THE EXPERIMENTAL CAMERA WRIST BIT -->
 
   <link name="${prefix}d435_inter_link" />
 
