@@ -52,7 +52,7 @@ public:
     joint_pos_deg = 45 * (pos_val/255);
     joint_pos_rad = joint_pos_deg * M_PI / 180;
 
-    ros::Time stamp = ros::Time(0);
+    ros::Time stamp = ros::Time::now();
     joint_state.name = {"finger_joint"};
     joint_state.position = {joint_pos_rad};
     joint_state.header.stamp = stamp;
@@ -66,28 +66,34 @@ public:
     tf::StampedTransform stamped_finger_tf;
     tf::Quaternion finger_joint_tf;
 
-    finger_joint_tf.setEuler(0,0,joint_pos_deg);
+    std::vector<string> finger_links = {"left_outer_knuckle", "right_outer_knuckle", "left_inner_finger", "right_inner_finger"};
+    std::vector<int> joint_direction = {1, -1, 1, -1};
 
-    try {
-      tf::TransformListener listener;
-      listener.waitForTransform("base_link", "robotiq_arg2f_base_link", ros::Time::now(), ros::Duration(3.0) );
-      listener.lookupTransform("base_link", "robotiq_arg2f_base_link", ros::Time::now(), stamped_finger_tf);
-    } catch (tf::TransformException err) {
-      ROS_ERROR("%s", err.what());
+    for (long i = 0; i < finger_links.size(); i++)
+    {
+      finger_joint_tf.setEuler(0,0,joint_pos_deg * joint_direction[i]);
+      finger_joint_tf.normalize();
+
+      try {
+        tf::TransformListener listener;
+        listener.waitForTransform("robotiq_arg2f_base_link", "base_link", ros::Time::now(), ros::Duration(3.0) );
+        listener.lookupTransform("robotiq_arg2f_base_link", "base_link", ros::Time::now(), stamped_finger_tf);
+      } catch (tf::TransformException err) {
+        ROS_ERROR("%s", err.what());
+      }
+
+      tf::Transform finger_tf_(finger_joint_tf, tf::Vector3(0, 0, 0));
+      tf::Transform finger_tf = stamped_finger_tf * finger_tf_;
+
+      stamped_finger_tf.setData(finger_tf);
+      stamped_finger_tf.child_frame_id_ = finger_links[i];
+      stamped_finger_tf.frame_id_ = "robotiq_arg2f_base_link";
+      stamped_finger_tf.stamp_ = ros::Time::now();
+
+      finger_tf_vector.clear();
+      finger_tf_vector.push_back(stamped_finger_tf);
+      broadcaster.sendTransform(finger_tf_vector);
     }
-
-    tf::Transform finger_tf_(finger_joint_tf, tf::Vector3(0, 0, 0));
-    tf::Transform finger_tf = stamped_finger_tf * finger_tf_;
-
-    stamped_finger_tf.setData(finger_tf);
-    stamped_finger_tf.child_frame_id_ = "left_outer_knuckle";
-    stamped_finger_tf.frame_id_ = "robotiq_arg2f_base_link";
-    stamped_finger_tf.stamp_ = ros::Time::now();
-
-    finger_tf_vector.push_back(stamped_finger_tf);
-
-    // Broadcast vector of finger tf::StampedTransform
-    broadcaster.sendTransform(finger_tf_vector);
   }
 
 };
