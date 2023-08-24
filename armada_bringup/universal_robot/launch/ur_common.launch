@@ -8,6 +8,7 @@
   <arg name="gripper_make" default="" doc="make of gripper (e.g. robotiq, sake_robotics, etc.)" />
   <arg name="gripper_model" default="" doc="model of gripper (e.g. r2f85, ezgripper, etc.)" />
   <arg name="wrist_cam" default="" doc="Attaches wrist camera (and millibar mounts) to end of robot arm before gripper"/>
+  <arg name="quick_changer" default="" />
 
   <!-- robot model -->
   <include file="$(find armada_description)/universal_robot/launch/ure_upload.launch">
@@ -18,6 +19,7 @@
     <arg name="gripper_make" value="$(arg gripper_make)"/>
     <arg name="gripper_model" value="$(arg gripper_model)"/>
     <arg name="wrist_cam" value="$(arg wrist_cam)" />
+    <arg name="quick_changer" default="$(arg quick_changer)" />
   </include>
 
   <!-- Convert joint states to /tf tranforms -->
