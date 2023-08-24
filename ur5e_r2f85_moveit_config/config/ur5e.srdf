@@ -86,6 +86,14 @@
         <joint name="wrist_2_joint" value="1.5707" />
         <joint name="wrist_3_joint" value="0.3203" />
     </group_state>
+    <group_state name="scan_pose" group="manipulator">
+        <joint name="elbow_joint" value="-1.41372" />
+        <joint name="shoulder_lift_joint" value="-1.1868" />
+        <joint name="shoulder_pan_joint" value="0.5585" />
+        <joint name="wrist_1_joint" value="-2.1118" />
+        <joint name="wrist_2_joint" value="1.5708" />
+        <joint name="wrist_3_joint" value="0.5585" />
+    </group_state>
     <group_state name="low_dropoff" group="manipulator">
         <joint name="elbow_joint" value="-2.231608" />
         <joint name="shoulder_lift_joint" value="-1.37724" />
