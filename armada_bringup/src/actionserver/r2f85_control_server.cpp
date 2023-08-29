@@ -4,6 +4,7 @@
 #include <control_msgs/GripperCommandAction.h>
 #include <robotiq_2f_gripper_control/Robotiq2FGripper_robot_output.h>
 #include <robotiq_2f_gripper_control/Robotiq2FGripper_robot_input.h>
+#include <armada_bringup/ActivateGripper.h>
 
 
 class R2f85GripperControlAction
@@ -16,6 +17,7 @@ protected:
   robotiq_2f_gripper_control::Robotiq2FGripper_robot_output gripper_cmd;
   robotiq_2f_gripper_control::Robotiq2FGripper_robot_input gripper_state;
   actionlib::SimpleActionServer<control_msgs::GripperCommandAction> R2f85GripperCommandServer_;
+  ros::ServiceServer activateGripperService;
   control_msgs::GripperCommandFeedback r2f85_gripper_feedback_;
   control_msgs::GripperCommandResult r2f85_gripper_result_;
   double gPO;
@@ -37,6 +39,8 @@ public:
     gripper_pub = nh_.advertise<robotiq_2f_gripper_control::Robotiq2FGripper_robot_output>("/Robotiq2FGripperRobotOutput", 10);
     gripper_sub = nh_.subscribe("/Robotiq2FGripperRobotInput", 10, &R2f85GripperControlAction::gripperStateCallback, this);
     R2f85GripperCommandServer_.start();
+
+    activateGripperService = nh.advertiseService("activate_gripper", &R2f85GripperControlAction::activateGripper, this);
   }
 
   /**
@@ -48,37 +52,22 @@ public:
    */
   void r2f85GripperCommand(const control_msgs::GripperCommandGoalConstPtr &goal)
   {
-    if (!gripper_state.gACT && !gripper_state.gGTO)
-    {
-      gripper_cmd.rACT = 1;
-      gripper_cmd.rGTO = 1;
-      gripper_cmd.rSP = 255;
-      gripper_cmd.rFR = 150;
-      gripper_pub.publish(gripper_cmd);
-      while (!gripper_state.gGTO && !gripper_state.gFLT && ros::ok())
-      {
-        // wait until gripper activation sequence is complete
-      }
-    }
     // map goal position into range 0->255
-    double target_position = goal->command.position * 255;
+    double target_position = goal->command.position * 230;
     // send command to go to position
+    gripper_cmd.rACT = 1;
+    gripper_cmd.rGTO = 1;
+    gripper_cmd.rATR = 0;
     gripper_cmd.rPR = int(target_position);
+    gripper_cmd.rSP = 255;
+    gripper_cmd.rFR = 150;
     gripper_pub.publish(gripper_cmd);
-    while (gripper_state.gOBJ != 0 && !gripper_state.gFLT && ros::ok())
+    
+    while (gripper_state.gOBJ < 2 && !gripper_state.gFLT && ros::ok())
     {
-      // wait until gripper starts moving
+      // wait
     }
-    // wait until gripper gets to position, stalls, or faults
-    while (gripper_state.gOBJ == 0 && !gripper_state.gFLT && ros::ok())
-    {
-      // get current gripper position (##/255) and convert it to a decimal val (0-1)
-      gPO = gripper_state.gPO;
-      gripper_pos_val = gPO/255;
-      r2f85_gripper_feedback_.position = gripper_pos_val;
-      R2f85GripperCommandServer_.publishFeedback(r2f85_gripper_feedback_);
-      ros::Duration(0.1).sleep();
-    }
+
     // get current gripper position (##/255) and convert it to a decimal val (0-1)
     gPO = gripper_state.gPO;
     gripper_pos_val = gPO/255;
@@ -108,6 +97,27 @@ public:
       R2f85GripperCommandServer_.setSucceeded(r2f85_gripper_result_);
       break;
     }
+  }
+
+  bool activateGripper(armada_bringup::ActivateGripper::Request &req,
+                              armada_bringup::ActivateGripper::Response &res)
+  {
+    gripper_cmd.rACT = 1;
+    gripper_cmd.rGTO = 1;
+    gripper_cmd.rATR = 0;
+    gripper_cmd.rPR = 0;
+    gripper_cmd.rSP = 255;
+    gripper_cmd.rFR = 150;
+    gripper_pub.publish(gripper_cmd);
+
+    while (gripper_state.gOBJ != 3 && ros::ok()) 
+    {
+      if (gripper_state.gFLT == 1)
+      {
+        return false;
+      }
+    }
+    return true;
   }
 
   /**
