@@ -5,6 +5,7 @@
 #include <robotiq_2f_gripper_control/Robotiq2FGripper_robot_output.h>
 #include <tf/transform_broadcaster.h>
 #include <tf/transform_listener.h>
+#include <tf/message_filter.h>
 
 using namespace std;
 
@@ -76,8 +77,8 @@ public:
 
       try {
         tf::TransformListener listener;
-        listener.waitForTransform("robotiq_arg2f_base_link", "base_link", ros::Time::now(), ros::Duration(3.0) );
-        listener.lookupTransform("robotiq_arg2f_base_link", "base_link", ros::Time::now(), stamped_finger_tf);
+        listener.waitForTransform("robotiq_arg2f_base_link", "base_link", ros::Time(0), ros::Duration(3.0) );
+        listener.lookupTransform("robotiq_arg2f_base_link", "base_link", ros::Time(0), stamped_finger_tf);
       } catch (tf::TransformException err) {
         ROS_ERROR("%s", err.what());
       }
