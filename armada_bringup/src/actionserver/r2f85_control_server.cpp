@@ -53,7 +53,7 @@ public:
   void r2f85GripperCommand(const control_msgs::GripperCommandGoalConstPtr &goal)
   {
     // map goal position into range 0->255
-    double target_position = goal->command.position * 230;
+    double target_position = goal->command.position * 255;
     // send command to go to position
     gripper_cmd.rACT = 1;
     gripper_cmd.rGTO = 1;
