@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<robot name="modular_mount_model" xmlns:xacro="http://ros.org/wiki/xacro">
+  <xacro:macro name="load_modular_mount" params="parent prefix">
+    <xacro:include filename="$(find armada_description)/armada_tooling/urdf/modular_mount_model_macro.urdf.xacro" />
+    <xacro:modular_mount parent="${parent}" prefix="${prefix}"/>
+  </xacro:macro>
+</robot>
